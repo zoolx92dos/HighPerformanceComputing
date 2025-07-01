@@ -1,0 +1,45 @@
+Queuing system
+
+uptime
+qstat -u [username]
+
+qstat - display status of PBS batch jobs, queues, or servers 
+qstat -u [USERNAME] - shows all jobs owned by USERNAME 
+qstat -aw -u [USERNAME] - shows jobs in a more informative and wider format 
+qstat -aT -u [USERNAME] - shows estimated start time of queued jobs     
+qstat -a -1n -u [USERNAME] - shows the compute nodes used for running jobs    
+qstat -f [JobID] - shows full output for running jobs including the resources it is using.  
+qstat –xf [JobID] - shows full output for already finished jobs.
+
+Overview of how to submit jobs
+
+The submission of an interactive job is shown first and then is translated to a batch job submission. 
+
+qsub - submit PBS job 
+qsub -I -A [ACCOUNT-STRING] -l select=1:ncpus=1:mem=5GB -l walltime=1:00:00 
+
+In the above line:  
+qsub -I  (qsub minus capital i) indicates that this is an interactive job 
+-l (minus little L) indicates a resource request (in front of select and walltime) 
+select=1 requests resources on a single compute node 
+:ncpus=1 requests a single core on the compute node 
+:mem=5GB requests 5GB of memory (ram) for the requested cores on the single node 
+walltime=1:00:00 requests 1 hour, 00 minutes and 00 seconds of runtime    
+
+To terminate the interactive job type exit on the command line.      
+
+To submit a batch job open a file and enter these lines: 
+#!/bin/bash 
+#PBS -A [ACCOUNT-STRING] 
+#PBS -N [JOBNAME] 
+#PBS -l select=1:ncpus=1:mem=5GB 
+#PBS -l walltime=1:00:00 
+[module commands go here] 
+[commands to run calculation go here] 
+ 
+If you have named the file test-file then you submit via qsub test-file.
+
+Overview of how to delete a job from the queue
+
+qdel - deletes PBS jobs 
+qdel [JobID]
