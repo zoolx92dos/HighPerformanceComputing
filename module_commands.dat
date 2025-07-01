@@ -1,0 +1,9 @@
+Overview of using software modules to use HPC installed software. 
+
+module – access to software modules 
+module avail – shows all available modules 
+module avail [SOFTWARE-NAME] — shows all modules for SOFTWARE-NAME  
+module load [SOFTWARE-NAME/VERSION]— loads a specific software version 
+module unload [SOFTWARE-NAME/VERSION] — unloads a specific software version 
+module list – lists all currently loaded software modules 
+module purge – unloads ALL currently loaded software modules
