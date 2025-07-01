@@ -7,3 +7,14 @@ module load [SOFTWARE-NAME/VERSION]— loads a specific software version
 module unload [SOFTWARE-NAME/VERSION] — unloads a specific software version 
 module list – lists all currently loaded software modules 
 module purge – unloads ALL currently loaded software modules
+
+Using Conda 
+https://docs.rcc.fsu.edu/software/python/#using-python-on-the-hpc
+
+conda env list
+conda env remove --name myenv
+conda create -n my_python_app
+conda activate my_python_app
+conda install python
+
+conda create -n my_python_app python=3.12 # unsloth does not work with the latest version as of 01/07/2025
