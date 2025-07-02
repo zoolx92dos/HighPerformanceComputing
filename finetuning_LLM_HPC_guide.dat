@@ -2,3 +2,6 @@ Read this first
 https://huggingface.co/blog/dvgodoy/fine-tuning-llm-hugging-face
 
 The HPC is CPU based, so we will be training the model on CPU cores.
+
+Guide on how to use GPUs on HPC
+https://hpc-wiki.info/hpc/GPU_Tutorial
