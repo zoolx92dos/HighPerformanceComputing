@@ -6,3 +6,4 @@ The HPC is CPU based, so we will be training the model on CPU cores.
 Guide on how to use GPUs on HPC
 1. https://hpc-wiki.info/hpc/GPU_Tutorial
 2. https://sydney-informatics-hub.github.io/training.artemis.gpu/aio.html
+3. https://hpcdocs.kennesaw.edu/training/jupyter/
