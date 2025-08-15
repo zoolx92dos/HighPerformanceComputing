@@ -48,3 +48,5 @@ python -c "from transformers import AutoTokenizer, AutoModelForCausalLM; \
 AutoTokenizer.from_pretrained('Qwen/Qwen3-1.7B', cache_dir='~/hf_assets'); \
 AutoModelForCausalLM.from_pretrained('Qwen/Qwen3-1.7B', cache_dir='~/hf_assets')"
 
+(base) [username@hpcserver ~]$ export HF_DATASETS_OFFLINE=1
+(base) [username@hpcserver ~]$ export TRANSFORMERS_OFFLINE=1
