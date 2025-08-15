@@ -1,0 +1,54 @@
+# this is for queuing code on gpu server
+# finetuning on HPC
+
+  # Make a directory for offline assets
+mkdir -p ~/hf_assets
+
+# 1. Download the dataset
+python -c "from datasets import load_dataset; load_dataset('ai4privacy/pii-masking-65k', cache_dir='./hf_assets')"
+
+# 2. Download the model and tokenizer
+python -c "from transformers import AutoTokenizer, AutoModelForCausalLM; \
+AutoTokenizer.from_pretrained('Qwen/Qwen3-1.7B', cache_dir='./hf_assets'); \
+AutoModelForCausalLM.from_pretrained('Qwen/Qwen3-1.7B', cache_dir='./hf_assets')"
+
+
+raw = load_dataset("ai4privacy/pii-masking-65k")["train"].shuffle(seed=42)
+tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    quantization_config=bnb_config,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+)
+
+
+local_cache = os.path.expanduser("~/hf_assets")
+
+raw = load_dataset("ai4privacy/pii-masking-65k", cache_dir=local_cache)["train"].shuffle(seed=42)
+
+tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True, cache_dir=local_cache)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    quantization_config=bnb_config,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+    cache_dir=local_cache,
+)
+
+pip install torch transformers datasets peft accelerate evaluate sacrebleu scikit-learn nltk numpy bitsandbytes
+
+export HF_DATASETS_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
+
+
+qsub -I -N Interactive -q gpuq -l walltime=7200 -l nodes=1:ppn=52:gpus=4:default
+
+
+# running jupyter notebook
+
+$ssh -L 8888:localhost:8888 username@servername.domain
+$conda activate LLM_Research_Python3.12
+$jupyter notebook --no-browser --port=8888
+
