@@ -1,0 +1,22 @@
+# Under Interactive session for using GPUs
+# this code is to check whether the models and datasets are being fetched from the local cache
+
+import os
+from datasets import load_dataset
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+local_cache = os.path.expanduser("~/hf_assets")
+model_name = "Qwen/Qwen3-1.7B"
+
+# Dataset from local cache
+raw = load_dataset("ai4privacy/pii-masking-65k", cache_dir=local_cache)["train"].shuffle(seed=42)
+
+# Tokenizer and model from local cache (no internet needed)
+tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True, cache_dir=local_cache)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    torch_dtype="auto",
+    device_map="auto",
+    cache_dir=local_cache,
+)
