@@ -33,3 +33,18 @@ model = AutoModelForCausalLM.from_pretrained(
     torch_dtype="auto",
     device_map="auto"
 )
+
+
+# Downloading the models locally
+
+# Make a directory for offline assets
+mkdir -p ~/hf_assets
+
+# 1. Download the dataset
+python -c "from datasets import load_dataset; load_dataset('ai4privacy/pii-masking-65k', cache_dir='~/hf_assets')"
+
+# 2. Download the model and tokenizer
+python -c "from transformers import AutoTokenizer, AutoModelForCausalLM; \
+AutoTokenizer.from_pretrained('Qwen/Qwen3-1.7B', cache_dir='~/hf_assets'); \
+AutoModelForCausalLM.from_pretrained('Qwen/Qwen3-1.7B', cache_dir='~/hf_assets')"
+
