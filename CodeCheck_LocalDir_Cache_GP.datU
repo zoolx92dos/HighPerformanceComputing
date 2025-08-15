@@ -20,3 +20,16 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="auto",
     cache_dir=local_cache,
 )
+
+
+model_path = os.path.expanduser("~/hf_assets/models--Qwen--Qwen3-1.7B/snapshots/<commit_hash>")
+models--Qwen--Qwen3-1.7B
+
+model_path = os.path.expanduser("~/hf_assets/models--Qwen--Qwen3-1.7B/snapshots/<commit_hash>")
+
+tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
+model = AutoModelForCausalLM.from_pretrained(
+    model_path,
+    torch_dtype="auto",
+    device_map="auto"
+)
