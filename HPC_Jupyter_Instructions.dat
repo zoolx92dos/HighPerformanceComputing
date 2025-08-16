@@ -1,0 +1,3 @@
+$ssh -L 8888:localhost:8888 username58@domain_name
+$jupyter notebook --no-browser --port=8888
+  
